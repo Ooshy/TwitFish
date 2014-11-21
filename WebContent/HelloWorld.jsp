@@ -19,8 +19,8 @@
 <body style="background-color:#333333">
 
 <%
-	//MySQLAccess dao = new MySQLAccess();
-	//dao.readDataBase();
+	MySQLAccess dao = new MySQLAccess();
+	dao.readDataBase();
 %>
 	
 	<div class="container" >
