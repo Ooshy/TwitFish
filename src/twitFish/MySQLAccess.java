@@ -20,43 +20,46 @@ public class MySQLAccess {
       Class.forName("com.mysql.jdbc.Driver");
       // setup the connection with the DB.
       connect = DriverManager
-          .getConnection("jdbc:mysql://localhost/TwitFish?"
+          .getConnection("jdbc:mysql://localhost:3306/twitfish?"
               + "user=czimmer2&password=Sinister10!");
-
+//      connect = DriverManager
+//              .getConnection("jdbc:mysql://rosemary.umw.edu/twitter?"
+//                  + "user=czimmer2&password=Cz635804");
       // statements allow to issue SQL queries to the database
-      statement = connect.createStatement();
-      // resultSet gets the result of the SQL query
-      resultSet = statement
-          .executeQuery("select * from Users");
-      writeResultSet(resultSet);
-
+//      statement = connect.createStatement();
+//      // resultSet gets the result of the SQL query
+//      resultSet = statement
+//          .executeQuery("select * from Users");
+//      writeResultSet(resultSet);
+//
       // preparedStatements can use variables and are more efficient
       preparedStatement = connect
-          .prepareStatement("insert into Users values (?, ?)");
+          .prepareStatement("insert into User values (null, ?, ?, ?)");
       // "myuser, webpage, datum, summary, COMMENTS from FEEDBACK.COMMENTS");
       // parameters start with 1
       preparedStatement.setString(1, "Chris");
       preparedStatement.setString(2, "Zimmerman");
+      preparedStatement.setString(3, "101 Wilderness Drive");
       
       preparedStatement.executeUpdate();
-
-      preparedStatement = connect
-          .prepareStatement("SELECT first_name, last_name from Users");
-      resultSet = preparedStatement.executeQuery();
-      writeResultSet(resultSet);
-
-      // remove again the insert comment
+//
 //      preparedStatement = connect
-//      .prepareStatement("delete from Users where first_name = ? ; ");
-//      preparedStatement.setString(1, "Chris");
-//      preparedStatement.executeUpdate();
-//      
-      resultSet = statement
-      .executeQuery("select * from Users");
-      writeMetaData(resultSet);
+//          .prepareStatement("SELECT first_name, last_name from Users");
+//      resultSet = preparedStatement.executeQuery();
+//      writeResultSet(resultSet);
+//
+//      // remove again the insert comment
+////      preparedStatement = connect
+////      .prepareStatement("delete from Users where first_name = ? ; ");
+////      preparedStatement.setString(1, "Chris");
+////      preparedStatement.executeUpdate();
+////      
+//      resultSet = statement
+//      .executeQuery("select * from Users");
+//      writeMetaData(resultSet);
       
     } catch (Exception e) {
-      throw e;
+      System.out.println( e);
     } finally {
       close();
     }
