@@ -18,6 +18,28 @@
 <link rel="stylesheet" href="css/normalize.css">
 <link rel="stylesheet" href="css/foundation.min.css">
 
+<script>
+        function validateRegister() {
+                var x = document.forms["registerForm"]["username"].value;
+                var y = document.forms["registerForm"]["password"].value;
+                if (x == null || x == "" || y == null || y == "") {
+                        alert("You must enter both a username and password.");
+                        return false;
+                }
+        }
+        function validateLogin() {
+            var x = document.forms["loginForm"]["username"].value;
+            var y = document.forms["loginForm"]["password"].value;
+            if (x == null || x == "" || y == null || y == "") {
+                    alert("You must enter both a username and password.");
+                    return false;
+            }
+    	}
+        
+</script>
+
+
+
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>TwitFish</title>
 </head>
@@ -52,12 +74,12 @@
 
 	        <div class="large-10 columns">
 	        <h3> Create an Account</h3>
-	        <form>
+	        <form name="loginForm" action="loginController.jsp" onsubmit="return validateLogin()" method="POST">
 	        	<div class="input-group">
-				  <input type="text" class="form-control" placeholder="Username">
+				  <input type="text" class="form-control" placeholder="Username" name="username">
 				</div>
 				<div class="input-group">
-				  <input type="text" class="form-control" placeholder="Password">
+				  <input type="text" class="form-control" placeholder="Password" name="password">
 				</div>
 				
 			
@@ -65,13 +87,19 @@
 	       <br/>
 	          <ul class="inline-list">
 		          <li>
-		          	<form name="registerForm" action="registerController.jsp" onsubmit="return validateRegistration()" method="POST">
+		          	<form name="registerForm" action="registerController.jsp" onsubmit="return validateRegister()" method="POST">
 		          		<button type="submit" class="btn btn-primary btn-default">Register</button>
 		          	</form>
 		          </li>
 	            
-	            <li><button type="button" class="btn btn-primary btn-default">Sign In</button></li>
-	            <li><button type="button" class="btn btn-primary btn-default">Browse Anonymously</button></li>
+	            <li>
+	            	<form name="logInForm" action="loginController.jsp" onsubmit="return validateLogin()" method="POST">
+	            		<button type="button" class="btn btn-primary btn-default">Log In</button></li>
+	            	</form>
+	            <li>
+	            	<form name="browseAnonymously" action="browseAnonymously.jsp"  method="POST">
+	            		<button type="button" class="btn btn-primary btn-default">Browse Anonymously</button></li>
+	            	</form>
 	          </ul>
 	        </div>
 	      </div>
