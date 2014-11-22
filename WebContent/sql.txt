@@ -36,3 +36,9 @@ PRIMARY KEY (MentionID)
 
 ALTER TABLE User
 ADD ProfilePicture varchar(255);
+
+ALTER TABLE User
+Add Username varchar(25);
+
+ALTER TABLE User
+Add Password varchar(255);
