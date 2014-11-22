@@ -19,22 +19,16 @@
 <link rel="stylesheet" href="css/foundation.min.css">
 
 <script>
-        function validateRegister() {
-                var x = document.forms["registerForm"]["username"].value;
-                var y = document.forms["registerForm"]["password"].value;
+        function validateUsernameAndPassword() {
+                var x = document.forms["usernameAndPassword"]["username"].value;
+                var y = document.forms["usernameAndPassword"]["password"].value;
                 if (x == null || x == "" || y == null || y == "") {
                         alert("You must enter both a username and password.");
                         return false;
                 }
+                return true;
         }
-        function validateLogin() {
-            var x = document.forms["loginForm"]["username"].value;
-            var y = document.forms["loginForm"]["password"].value;
-            if (x == null || x == "" || y == null || y == "") {
-                    alert("You must enter both a username and password.");
-                    return false;
-            }
-    	}
+        
         
 </script>
 
@@ -74,7 +68,7 @@
 
 	        <div class="large-10 columns">
 	        <h3> Create an Account</h3>
-	        <form name="loginForm" action="loginController.jsp" onsubmit="return validateLogin()" method="POST">
+	        <form name="usernameAndPassword">
 	        	<div class="input-group">
 				  <input type="text" class="form-control" placeholder="Username" name="username">
 				</div>
@@ -87,19 +81,21 @@
 	       <br/>
 	          <ul class="inline-list">
 		          <li>
-		          	<form name="registerForm" action="registerController.jsp" onsubmit="return validateRegister()" method="POST">
+		          	<form name="registerForm" action="registerController.jsp" onsubmit="return validateUsernameAndPassword()" method="POST">
 		          		<button type="submit" class="btn btn-primary btn-default">Register</button>
 		          	</form>
 		          </li>
 	            
 	            <li>
-	            	<form name="logInForm" action="loginController.jsp" onsubmit="return validateLogin()" method="POST">
-	            		<button type="button" class="btn btn-primary btn-default">Log In</button></li>
+	            	<form name="logInForm" action="loginController.jsp" onsubmit="return validateUsernameAndPassword()" method="POST">
+	            		<button type="button" class="btn btn-primary btn-default">Log In</button>
 	            	</form>
+	            </li>
 	            <li>
 	            	<form name="browseAnonymously" action="browseAnonymously.jsp"  method="POST">
-	            		<button type="button" class="btn btn-primary btn-default">Browse Anonymously</button></li>
+	            		<button type="button" class="btn btn-primary btn-default">Browse Anonymously</button>
 	            	</form>
+	            </li>
 	          </ul>
 	        </div>
 	      </div>

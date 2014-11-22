@@ -1,0 +1,38 @@
+CREATE database TwitFish;
+
+CREATE TABLE User
+(
+UserID int not null auto_increment,
+FirstName varchar(40) not null,
+LastName varchar(40) not null,
+Address varchar(255) not null,
+PRIMARY KEY (UserID)
+);
+
+CREATE TABLE Message
+(
+MessageID int not null auto_increment,
+Text varchar(140) not null,
+Date DATETIME not null,
+UserID int not null,
+PRIMARY KEY (MessageID)
+);
+
+CREATE TABLE HashTag
+(
+HashTagID int not null auto_increment,
+HashTag varchar(139) not null,
+MessageID int not null,
+PRIMARY KEY (HashTagID)
+);
+
+CREATE TABLE Mention
+(
+MentionID int not null auto_increment,
+Mention varchar(139) not null,
+MessageID int not null,
+PRIMARY KEY (MentionID)
+);
+
+ALTER TABLE User
+ADD ProfilePicture varchar(255);

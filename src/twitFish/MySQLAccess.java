@@ -21,7 +21,7 @@ public class MySQLAccess {
       // setup the connection with the DB.
       connect = DriverManager
           .getConnection("jdbc:mysql://localhost:3306/twitfish?"
-              + "user=czimmer2&password=Sinister10!");
+              + "user=root&password=password");
 //      connect = DriverManager
 //              .getConnection("jdbc:mysql://rosemary.umw.edu/twitter?"
 //                  + "user=czimmer2&password=Cz635804");
