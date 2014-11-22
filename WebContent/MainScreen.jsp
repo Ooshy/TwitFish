@@ -71,10 +71,14 @@
         <h5><a href="#">Chris Zimmerman</a></h5>
           <div class="section-container vertical-nav" data-section data-options="deep_linking: false; one_up: true">
           <section class="section">
-            <h5 class="title"><a href="#">Following</a></h5>
+            <button class="btn btn-primary" type="button">
+  				Following <span class="badge">4</span>
+			</button>
           </section>
           <section class="section">
-            <h5 class="title"><a href="#">Followers</a></h5>
+    	      <button class="btn btn-primary" type="button">
+  				Followers <span class="badge">4</span>
+				</button>
           </section>
         </div>
  
@@ -122,16 +126,11 @@
       <hr/>
       <div class="row">
         <div class="large-5 columns">
-          <p>© Copyright no one at all. Go to town.</p>
+          <p style="color:#DDDDDD">© Copyright TwitFish LLC.</p>
         </div>
         <div class="large-7 columns">
           <ul class="inline-list right">
-            <li><a href="#">Section 1</a></li>
-            <li><a href="#">Section 2</a></li>
-            <li><a href="#">Section 3</a></li>
-            <li><a href="#">Section 4</a></li>
-            <li><a href="#">Section 5</a></li>
-            <li><a href="#">Section 6</a></li>
+            <li><a href="#">Contact</a></li>
           </ul>
         </div>
       </div>
