@@ -3,27 +3,14 @@
 
 <%
         String username = request.getParameter("username");
-		out.println("FUCK THIS SHIT");
-		out.println(username);
-        
+
         
         String password  = request.getParameter("password");
-        out.println("FUCK THIS SHIT");
-        out.println(password);
-        //Hashtable<String, String> lg_info = new Hashtable<String, String>();
-        //session.setAttribute("lg_info", lg_info);
-
-        //lg_info.put("error", "");
 
         if (username == "" || username == null || password == "" || password == null){
-                //lg_info.put("error", "Missing first name or last name.");
-                out.println("FUCK THIS SHIT");
-                //response.sendRedirect("login.jsp");
+			// this should never happen
         }else{
-                //lg_info.put("username", username);
-                //lg_info.put("password", password);
                
-
                try{
                        Class.forName("com.mysql.jdbc.Driver");
                        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/TwitFish", "root", "password");
@@ -35,10 +22,26 @@
                                int num = st.getInt("COUNT");
                                if ( num == 0 ) // create account
                                {
-                            	   Statement insertStatement = conn.createStatement();
-                            	   String insertString = "INSERT INTO User VALUES (null, null, null, null, null, '" + username + "', '" + password + ")";
+                            	   
+                            	   String insertString = "INSERT INTO User VALUES (null, ?, ?, ?, null, ?, ?, ?)";
+                            	   PreparedStatement insertStatement = conn.prepareStatement(insertString);
+                            	   insertStatement.setString(1, (String) request.getAttribute("firstname"));
+                            	   insertStatement.setString(2, (String) request.getAttribute("lastname"));
+                            	   insertStatement.setString(3, (String) request.getAttribute("address"));
+                            		// set profile picture to null
+                            	   insertStatement.setString(4, (String) request.getAttribute("username"));
+                            	   insertStatement.setString(5, (String) request.getAttribute("password"));
+                            	   insertStatement.setString(6, (String) request.getAttribute("email"));
+                            	   insertStatement.executeUpdate(insertString);
+                            	   
                             	   conn.close();
                             	   session.setAttribute("username", username);
+                            	   session.setAttribute("firstname", request.getAttribute("firstname"));
+                           		   session.setAttribute("lastname",  request.getAttribute("lastname"));
+                           		   session.setAttribute("address", request.getAttribute("address"));
+                           		   session.setAttribute("phone", request.getAttribute("phone"));
+                           		   session.setAttribute("email", request.getAttribute("email"));
+                           		   
                             	   response.sendRedirect("MainScreen.jsp");
                                }
                                else
@@ -52,7 +55,8 @@
                        conn.close();
                } catch (Exception e)
                {
-               		
+            	   
+            	   response.sendRedirect("register.jsp");
                }
          }
  %>                                      

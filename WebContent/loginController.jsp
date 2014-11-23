@@ -11,14 +11,8 @@
         //lg_info.put("error", "");
 
         if (username == "" || username == null || password == "" || password == null){
-                //lg_info.put("error", "Missing first name or last name.");
-                out.println("FUCK");
-                //response.sendRedirect("login.jsp");
+		     // should never happen
         }else{
-                //lg_info.put("username", username);
-                //lg_info.put("password", password);
-               
-
                try{
                        Class.forName("com.mysql.jdbc.Driver");
                        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/TwitFish", "root", "password");
@@ -30,11 +24,21 @@
                                int num = st.getInt("COUNT");
                                if ( num == 0 ) // create account
                                {
-                            	  out.println("HELLO WORLD");
+                            	  // error you do not exist
                                }
                                else
                                {
-                            	   out.println("FUCKEER");
+                            	   Statement userInfoStmt = conn.createStatement();
+                                   String userInfoString = "SELECT *  FROM User WHERE username = '" + username + "' && password = '" + password + "'";
+                                   ResultSet userInfoResultSet = userInfoStmt.executeQuery(userInfoString);
+                                   if (userInfoResultSet.next())
+                                   {
+                                		session.setAttribute("firstname", userInfoResultSet.getString("FirstName"));
+                                		session.setAttribute("lastname",  userInfoResultSet.getString("LastName"));
+                                		session.setAttribute("address", userInfoResultSet.getString("Address"));
+                                		session.setAttribute("phone", userInfoResultSet.getString("Phone"));
+                                		session.setAttribute("email", userInfoResultSet.getString("Email"));
+                                   }
                             	   session.setAttribute("username", username);
                             	   conn.close();
                             	   response.sendRedirect("MainScreen.jsp");
@@ -46,7 +50,7 @@
                        conn.close();
                } catch (Exception e)
                {
-               		
+               		out.println(e);
                }
          }
  %>                                      

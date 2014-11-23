@@ -83,7 +83,7 @@
     <div class="large-3 columns ">
       <div class="panel">
         <a href="#"><img src="img/default_profile_large.jpg"/></a>
-        <h5><a href="#">Chris Zimmerman</a></h5>
+        <h5><a href="#"><%= session.getAttribute("firstname") + " " + session.getAttribute("lastname") %></a></h5>
           <div class="section-container vertical-nav" data-section data-options="deep_linking: false; one_up: true">
           <section class="section">
             <button class="btn btn-primary" type="button">

@@ -35,6 +35,12 @@ PRIMARY KEY (MentionID)
 );
 
 ALTER TABLE User
+ADD Email varchar(255);
+
+ALTER TABLE User
+ADD Phone varchar(15);
+
+ALTER TABLE User
 ADD ProfilePicture varchar(255);
 
 ALTER TABLE User

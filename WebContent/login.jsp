@@ -89,9 +89,9 @@
 	            </li>
 	            <li>
 	            	<p style="color:#FFFFFF">Don't have an account? </p>
-	            	<form name="registerForm" action="registerController.jsp" onsubmit="return validateUsernameAndPassword()" method="POST">
-	            		<button type="submit" class="btn btn-primary btn-default">Register</button>		
-	            	</form>
+	            	
+	            	<a href="register.jsp"><button type="submit" class="btn btn-primary btn-default">Register</button></a>		
+	            	
 	            </li>
 	          </ul>
 	        </div>
