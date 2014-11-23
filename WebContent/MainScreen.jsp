@@ -21,6 +21,21 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>TwitFish</title>
 </head>
+
+<%
+
+	String username = (String)session.getAttribute("username");
+	
+	
+	if (username == null)
+	{
+		response.sendRedirect("login.jsp");
+	}
+	else
+	{
+%>
+
+
 <body style="background-color:#333333">
      
  
@@ -138,4 +153,9 @@
   </footer>
     
 </body>
+
+<%
+	}
+%>
 </html>>
+

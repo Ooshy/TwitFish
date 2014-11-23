@@ -3,9 +3,9 @@ CREATE database TwitFish;
 CREATE TABLE User
 (
 UserID int not null auto_increment,
-FirstName varchar(40) not null,
-LastName varchar(40) not null,
-Address varchar(255) not null,
+FirstName varchar(40)  ,
+LastName varchar(40) ,
+Address varchar(255) ,
 PRIMARY KEY (UserID)
 );
 
@@ -38,7 +38,7 @@ ALTER TABLE User
 ADD ProfilePicture varchar(255);
 
 ALTER TABLE User
-Add Username varchar(25);
+Add Username varchar(25) not null;
 
 ALTER TABLE User
-Add Password varchar(255);
+Add Password varchar(255) not null;
