@@ -193,18 +193,21 @@
 	        <div class="modal-content">
 	            <div class="modal-header">
 	            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&amp;times;</button>
-	            <h4 class="modal-title" id="myModalLabel">Send a Message</h4>
+	            <h4 class="modal-title" id="myModalLabel">People you are following</h4>
 	            </div>
-	            <form name="messageForm" action = "sendMessageController.jsp" onsubmit="return validateMessage()" method="POST">
 		            <div class="modal-body">
-		                <textarea class="span6" rows="3" placeholder="Type your message here..." required name="message"></textarea>
+		                <%
+	                	for ( User u : user.getFollowing())
+	                	{
+	                %>
+	                <p><%= u.getFirstName() + " " + u.getLastName() %></p>
+	                <%
+	                	}
+	                %>
 		            </div>
 	            	<div class="modal-footer">
 	                	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	                
-	               		<button type="submit" class="btn btn-success" data-dismiss="modal">Send</button>
 	               	</div>
-	            </form>
 	                
 	        </div>
 	    </div>
