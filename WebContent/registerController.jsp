@@ -1,3 +1,4 @@
+<%@page import="twitFish.*"%>
 <%@page import="java.util.*"%>
 <%@page import="java.util.*,java.sql.*,java.io.*" %>
 
@@ -49,7 +50,13 @@
                            		   session.setAttribute("phone", phone );
                            		   session.setAttribute("email", email );
                            		   
-                           		   
+	                           		User user = new User(username, password);
+	                           		//out.println(user);
+	                           		//if (true) throw new Exception("Debug");
+	                           		if (AuthenticatedUserSingleton.getUser() == null)
+	                           			AuthenticatedUserSingleton.setAuthenticatedUser(user);
+	                            	   
+	                            	  
                             	   response.sendRedirect("MainScreen.jsp");
                                }
                                else
