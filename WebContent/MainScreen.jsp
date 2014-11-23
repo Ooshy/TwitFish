@@ -70,7 +70,7 @@
           <ul class="dropdown-menu" role="menu">
             <li><a href="#">Settings</a></li>
             <li class="divider"></li>
-            <li><a href="#">Logout</a></li>
+            <li><a href="logoutController.jsp">Logout</a></li>
           </ul>
         </li>
       </ul>
@@ -90,6 +90,7 @@
   				Following <span class="badge">4</span>
 			</button>
           </section>
+          <br/>
           <section class="section">
     	      <button class="btn btn-primary" type="button">
   				Followers <span class="badge">4</span>

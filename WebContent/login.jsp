@@ -66,7 +66,7 @@
 			<br/>
 
 	        <div class="large-10 columns">
-	        <h3 style="color:#FFFFFF;font-family:"Helvetica Neue"> TwitFish</h3>
+	        <h3 style="color:#FFFFFF;font-family:"Helvetica Neue"> Welcome to TwitFish</h3>
 	        <form name="loginForm" action="loginController.jsp" onsubmit="return validateUsernameAndPassword()" method="POST">				
 	        	<div class="input-group">
 				  <input type="text" class="form-control" placeholder="Username" name="username">
