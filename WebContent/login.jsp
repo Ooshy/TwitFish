@@ -59,13 +59,18 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-  <div class="row">
- 
-    <div class="large-6 columns">
-		<div class="row" style="background-color:#008AE6; padding-top:5px;padding-bottom:10px;margin-top:40px;">
-			<br/>
 
-	        <div class="large-10 columns">
+
+  <div class="row">
+ 	
+ 	
+    <div class="large-6 columns">
+    	
+		<div class="panel" style="background-color:#008AE6; padding-top:5px;padding-bottom:10px;margin-top:40px;">
+			
+			<br/>
+			
+	        
 	        <h3 style="color:#FFFFFF;font-family:"Helvetica Neue"> Welcome to TwitFish</h3>
 	        <form name="loginForm" action="loginController.jsp" onsubmit="return validateUsernameAndPassword()" method="POST">				
 	        	<div class="input-group">
@@ -75,7 +80,7 @@
 				  <input type="password" class="form-control" placeholder="Password" name="password">
 				</div>
 				</br>
-				<button type="submit" class="btn btn-primary btn-default">Log In</button>
+				<button type="submit" class="btn btn-success btn-default">Log In</button>
 		    </form>
 			
 	        </form>
@@ -84,20 +89,21 @@
 	          	<li>
 	          		<p style="color:#FFFFFF">Don't want an account? </p>
 	            	<form name="browseAnonymously" action="browseAnonymously.jsp"  method="POST">
-	            		<button type="submit" class="btn btn-primary btn-default">Browse Anonymously</button>
+	            		<button type="submit" class="btn btn-info btn-default">Browse Anonymously</button>
 	            	</form>
 	            </li>
 	            <li>
 	            	<p style="color:#FFFFFF">Don't have an account? </p>
 	            	
-	            	<a href="register.jsp"><button type="submit" class="btn btn-primary btn-default">Register</button></a>		
+	            	<a href="register.jsp"><button type="submit" class="btn btn-info btn-default">Register</button></a>		
 	            	
 	            </li>
 	          </ul>
+	          <br/>
 	        </div>
 	      </div>
 	    </div>
-  </div>
+  
  
  
    

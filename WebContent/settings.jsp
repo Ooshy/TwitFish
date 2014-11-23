@@ -17,24 +17,8 @@
 <link rel="stylesheet" href="css/foundation.css">
 <link rel="stylesheet" href="css/normalize.css">
 <link rel="stylesheet" href="css/foundation.min.css">
-
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>TwitFish</title>
+<title>TwitFish - Account Settings</title>
 </head>
-
-<%
-
-	String username = (String)session.getAttribute("username");
-	
-	
-	if (username == null)
-	{
-		response.sendRedirect("login.jsp");
-	}
-	else
-	{
-%>
-
 
 <body style="background-color:#008AE6">
      
@@ -55,7 +39,7 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home<span class="sr-only">(current)</span></a></li>
+        <li class="active"><a href="MainScreen.jsp">Home<span class="sr-only">(current)</span></a></li>
         <li><a href="#">Messages</a></li>
       </ul>
       <form class="navbar-form navbar-left" role="search">
@@ -80,9 +64,9 @@
   <div class="row">
   
      
-    <div class="large-3 columns ">
+    <div class="col-md-3">
       <div class="panel">
-        <a href="settings.jsp"><img src="img/default_profile_large.jpg"/></a>
+        <a href="#"><img src="img/default_profile_large.jpg"/></a>
         <h5><a href="#"><%= session.getAttribute("firstname") + " " + session.getAttribute("lastname") %></a></h5>
           <div class="section-container vertical-nav" data-section data-options="deep_linking: false; one_up: true">
           
@@ -105,67 +89,16 @@
  
       </div>
     </div>
+    <div class="col-md-8">
+    	<div class="panel">
+    		<div class="row">
+    			Hi	
     
-     
-     
-    <div class="large-6 columns" ">
- 
-       <%
-       for (int i = 0; i != 3; ++i)
-       {
-       %>
-       <div class="panel" style="background-color:#FFFFFF">
-	      <div class="row" style="background-color:#FFFFFF">
-		      
-		      	<br/>
-		        <div class="large-2 columns small-3"><img src="img/default_profile_small.jpg"/></div>
-		        <div class="large-10 columns">
-		          <p><strong>Some Person said:</strong> Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong.</p>
-		          <ul class="inline-list">
-		            <li><a href="">Reply</a></li>
-		            <li><a href="">Share</a></li>
-		          </ul>
-		        </div>
-		      </div>
-	  	 </div>	      
-	  
-      <%
-       if (i != 3) {
-    	%>
-    	<hr/>
-    	<% 
-       }
-	}
-  %>
-       
-             
- 
+    		</div>
+    	</div>
     </div>
-  </div>
- 
- 
-   
- 
-  <footer class="row">
-    <div class="large-12 columns">
-      <hr/>
-      <div class="row">
-        <div class="large-5 columns">
-          <p style="color:#DDDDDD">© Copyright TwitFish LLC.</p>
-        </div>
-        <div class="large-7 columns">
-          <ul class="inline-list right">
-            <li><a href="#">Contact</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </footer>
     
+    
+
 </body>
-
-<%
-	}
-%>
-</html>>
-
+</html>
