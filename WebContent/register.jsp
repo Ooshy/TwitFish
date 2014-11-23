@@ -77,6 +77,13 @@
 				<div class="input-group">
 				  <input type="password" class="form-control" placeholder="Password" name="password">
 				</div>
+				<br>
+				<div class="input-group">
+				  <input type="text" class="form-control" placeholder="First Name" name="firstname">
+				</div>
+				<div class="input-group">
+				  <input type="text" class="form-control" placeholder="Last Name" name="lastname">
+				</div>
 				<div class="input-group">
 				  <input type="email" class="form-control" placeholder="Email" name="email">
 				</div>

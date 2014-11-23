@@ -23,24 +23,32 @@
                                if ( num == 0 ) // create account
                                {
                             	   
-                            	   String insertString = "INSERT INTO User VALUES (null, ?, ?, ?, null, ?, ?, ?)";
+                            	   String insertString = "INSERT INTO User VALUES (null, ?, ?, ?, null, ?, ?, ?, ?)";
                             	   PreparedStatement insertStatement = conn.prepareStatement(insertString);
-                            	   insertStatement.setString(1, (String) request.getAttribute("firstname"));
-                            	   insertStatement.setString(2, (String) request.getAttribute("lastname"));
-                            	   insertStatement.setString(3, (String) request.getAttribute("address"));
+                            	   String firstName = (String) request.getParameter("firstname");
+                            	   String lastName  = (String) request.getParameter("lastname");
+                            	   String address   = (String) request.getParameter("address");
+                            	   String email     = (String) request.getParameter("email");
+                            	   String phone     = (String) request.getParameter("phone");
+                            	   
+                            	   insertStatement.setString(1, firstName != null ? firstName : "");
+                            	   insertStatement.setString(2, lastName  != null ? lastName  : "");
+                            	   insertStatement.setString(3, (String) address != null ? address : "");
                             		// set profile picture to null
-                            	   insertStatement.setString(4, (String) request.getAttribute("username"));
-                            	   insertStatement.setString(5, (String) request.getAttribute("password"));
-                            	   insertStatement.setString(6, (String) request.getAttribute("email"));
-                            	   insertStatement.executeUpdate(insertString);
+                            	   insertStatement.setString(4, username != null ? username : "");
+                            	   insertStatement.setString(5, password != null ? password : "");
+                            	   insertStatement.setString(6, email    != null ? email    : "");
+                            	   insertStatement.setString(7, phone    != null ? phone    : "");
+                            	   insertStatement.executeUpdate();
                             	   
                             	   conn.close();
                             	   session.setAttribute("username", username);
-                            	   session.setAttribute("firstname", request.getAttribute("firstname"));
-                           		   session.setAttribute("lastname",  request.getAttribute("lastname"));
-                           		   session.setAttribute("address", request.getAttribute("address"));
-                           		   session.setAttribute("phone", request.getAttribute("phone"));
-                           		   session.setAttribute("email", request.getAttribute("email"));
+                            	   session.setAttribute("firstname", firstName);
+                           		   session.setAttribute("lastname",  lastName );
+                           		   session.setAttribute("address", address );
+                           		   session.setAttribute("phone", phone );
+                           		   session.setAttribute("email", email );
+                           		   
                            		   
                             	   response.sendRedirect("MainScreen.jsp");
                                }
@@ -55,8 +63,8 @@
                        conn.close();
                } catch (Exception e)
                {
-            	   
-            	   response.sendRedirect("register.jsp");
+            	   out.println(e);
+//            	   response.sendRedirect("register.jsp");
                }
          }
  %>                                      
