@@ -1,3 +1,4 @@
+<%@page import="twitFish.*"%>
 <%@page import="java.util.*"%>
 <%@page import="java.util.*,java.sql.*,java.io.*" %>
 
@@ -34,6 +35,7 @@
                                    ResultSet userInfoResultSet = userInfoStmt.executeQuery(userInfoString);
                                    if (userInfoResultSet.next())
                                    {
+                                	   
                                 		session.setAttribute("firstname", userInfoResultSet.getString("FirstName"));
                                 		session.setAttribute("lastname",  userInfoResultSet.getString("LastName"));
                                 		session.setAttribute("address", userInfoResultSet.getString("Address"));
@@ -41,6 +43,13 @@
                                 		session.setAttribute("email", userInfoResultSet.getString("Email"));
                                    }
                             	   session.setAttribute("username", username);
+                            	   AuthenticatedUserSingleton userSingleton = AuthenticatedUserSingleton.getInstance();
+                           		
+                           		User user = new User(username, password);
+                           		//out.println(user);
+                           		//if (true) throw new Exception("Debug");
+                           		if (AuthenticatedUserSingleton.getUser() == null)
+                           			AuthenticatedUserSingleton.setAuthenticatedUser(user);
                             	   conn.close();
                             	   response.sendRedirect("MainScreen.jsp");
                             	   // return error message THIS NAME HAS ALREADY BEEN TAKEN

@@ -20,6 +20,24 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>TwitFish</title>
+<script>
+	function validateMessage()
+	{
+		alert("WHY");
+		//var message = document.forms["messageForm"]["message"].value;
+		//alert(message);
+		return true;
+	}
+</script>
+<style>
+#grad1 {
+    height: 200px;
+    background: -webkit-linear-gradient( #33CCFF, #003399); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient( #33CCFF, #003399); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient( #33CCFF,  #003399); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#33CCFF, #003399); /* Standard syntax (must be last)
+</style>
+
 </head>
 
 <%
@@ -33,12 +51,23 @@
 	}
 	else
 	{
+		/*User user = new User((String) session.getAttribute("firstname"),
+				(String)session.getAttribute("lastname"),
+				(String)session.getAttribute("address"),
+				(String)session.getAttribute("profile"),
+				(String)session.getAttribute("email"),
+				(String)session.getAttribute("phone]"));
+		*/
+		User user = AuthenticatedUserSingleton.getUser();
+				
 %>
 
 
-<body style="background-color:#008AE6">
-     
+<body id = "grad1">
  
+ 
+     
+ <div class="container">
  <nav class="navbar navbar-default" role="navigation" style="background-color:#008AE6">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -62,13 +91,13 @@
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search @example #topic">
         </div>
-        <button type="submit" class="btn btn-success" >Go</button>
+        <button type="submit" class="btn btn-success" ><span class="glyphicon glyphicon-search" aria-hidden="false"></span></button>
       </form>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Account<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Settings</a></li>
+            <li><a href="settings.jsp">Settings</a></li>
             <li class="divider"></li>
             <li><a href="logoutController.jsp">Logout</a></li>
           </ul>
@@ -83,32 +112,104 @@
     <div class="large-3 columns ">
       <div class="panel">
         <a href="settings.jsp"><img src="img/default_profile_large.jpg"/></a>
-        <h5><a href="#"><%= session.getAttribute("firstname") + " " + session.getAttribute("lastname") %></a></h5>
+        <h5><a href="#"><%= user.getFirstName() + " " + user.getLastName() %></a></h5>
           <div class="section-container vertical-nav" data-section data-options="deep_linking: false; one_up: true">
           
           <section class="section">
-          	<button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-envelope" aria-hidden="false"></span> Send Message</button>
+          	<a href="#" class="btn btn-danger" data-toggle="modal" data-target="#basicModal"><span class="glyphicon glyphicon-envelope" aria-hidden="false"></span> Send Message</a>
           </section>
           <br/>
           <section class="section">
-            <button class="btn btn-primary" type="button">
-  				Following <span class="badge">4</span>
-			</button>
+            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#followingModal">
+  				Following <span class="badge"><%= user.getNumFollowing() %></span>
+			</a>
           </section>
           <br/>
           <section class="section">
-    	      <button class="btn btn-primary" type="button">
-  				Followers <span class="badge">4</span>
-				</button>
+    	    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#followersModal">
+  				Followers <span class="badge"><%= user.getNumFollowers() %></span>
+			</a>
           </section>
         </div>
  
       </div>
     </div>
     
-     
-     
-    <div class="large-6 columns" ">
+    <!-- modal -->
+    <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&amp;times;</button>
+	            <h4 class="modal-title" id="myModalLabel">Send a Message</h4>
+	            </div>
+	            <form name="messageForm" action="sendMessageController.jsp" onsubmit="return validateMessage()" method="POST">
+		            <div class="modal-body">
+		                <textarea class="span6" rows="3" placeholder="Type your message here..." name="message" required></textarea>
+		            </div>
+	            	<div class="modal-footer">
+	                	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	                
+	               		<button type="submit" class="btn btn-success" data-dismiss="modal">Send</button>
+	               	</div>
+	            </form>
+	                
+	        </div>
+	    </div>
+	</div>
+	
+	<!-- followers modal -->
+    <div class="modal fade" id="followersModal" tabindex="-1" role="dialog" aria-labelledby="followersModal" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&amp;times;</button>
+	            <h4 class="modal-title" id="myModalLabel">People following you...</h4>
+	            </div>
+	            <div class="modal-body">
+	                <%
+	                	for ( User u : user.getFollowers())
+	                	{
+	                %>
+	                <p><%= u.getFirstName() + " " + u.getLastName() %></p>
+	                <%
+	                	}
+	                %>
+	            </div>
+            	<div class="modal-footer">
+                	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                
+
+               	</div>
+	            
+	                
+	        </div>
+	    </div>
+	</div>
+	
+    <!-- modal -->
+    <div class="modal fade" id="followingModal" tabindex="-1" role="dialog" aria-labelledby="followingModal" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&amp;times;</button>
+	            <h4 class="modal-title" id="myModalLabel">Send a Message</h4>
+	            </div>
+	            <form name="messageForm" action = "sendMessageController.jsp" onsubmit="return validateMessage()" method="POST">
+		            <div class="modal-body">
+		                <textarea class="span6" rows="3" placeholder="Type your message here..." required name="message"></textarea>
+		            </div>
+	            	<div class="modal-footer">
+	                	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	                
+	               		<button type="submit" class="btn btn-success" data-dismiss="modal">Send</button>
+	               	</div>
+	            </form>
+	                
+	        </div>
+	    </div>
+	</div> 
+    <div class="large-9 columns">
  
        <%
        for (int i = 0; i != 3; ++i)
@@ -161,7 +262,7 @@
       </div>
     </div>
   </footer>
-    
+</div>
 </body>
 
 <%

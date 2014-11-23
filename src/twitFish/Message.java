@@ -9,11 +9,23 @@ public class Message
 	Date _date;
 	User _author;
 
+	public Message(String text, Date date, User author)
+	{
+		this(text,date, author,false);
+	}
 	public Message(String text, User author)
 	{
 		this(text,author,false);
 	}
-
+	
+	public Message(String text, Date date, User author, boolean isDirect)
+	{
+		_text = text;
+		_date = date;
+		_author = author;
+		_isDirect = isDirect;
+	}
+	
 	public Message(String text, User author, boolean isDirect)
 	{
 		_text = text;

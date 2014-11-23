@@ -64,7 +64,7 @@
 </nav>
   <div class="row">
  
-    <div class="large-6 columns">
+    <div class="large-3 columns">
 		<div class="row" style="background-color:#008AE6; padding-top:5px;padding-bottom:10px;margin-top:40px;">
 			<br>
 

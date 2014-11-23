@@ -12,8 +12,15 @@ PRIMARY KEY (UserID)
 CREATE TABLE Message
 (
 MessageID int not null auto_increment,
+SenderID int not null,
 Text varchar(140) not null,
 Date DATETIME not null,
+PRIMARY KEY (MessageID)
+);
+
+CREATE TABLE MessageUser
+(
+MessageID int not null auto_increment,
 UserID int not null,
 PRIMARY KEY (MessageID)
 );
