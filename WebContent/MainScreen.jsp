@@ -60,9 +60,9 @@
       </ul>
       <form class="navbar-form navbar-left" role="search">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search TwitFish...">
+          <input type="text" class="form-control" placeholder="Search @example #topic">
         </div>
-        <button type="submit" class="btn btn-default" style="visibility:hidden"></button>
+        <button type="submit" class="btn btn-success" >Go</button>
       </form>
       <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
@@ -85,6 +85,11 @@
         <a href="#"><img src="img/default_profile_large.jpg"/></a>
         <h5><a href="#"><%= session.getAttribute("firstname") + " " + session.getAttribute("lastname") %></a></h5>
           <div class="section-container vertical-nav" data-section data-options="deep_linking: false; one_up: true">
+          
+          <section class="section">
+          	<button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-envelope" aria-hidden="false"></span> Send Message</button>
+          </section>
+          <br/>
           <section class="section">
             <button class="btn btn-primary" type="button">
   				Following <span class="badge">4</span>
@@ -103,23 +108,25 @@
     
      
      
-    <div class="large-6 columns" style="background-color:#222222">
+    <div class="large-6 columns" ">
  
        <%
        for (int i = 0; i != 3; ++i)
        {
        %>
-      <div class="row" style="background-color:#FFFFFF">
-      	<br/>
-        <div class="large-2 columns small-3"><img src="img/default_profile_small.jpg"/></div>
-        <div class="large-10 columns">
-          <p><strong>Some Person said:</strong> Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong.</p>
-          <ul class="inline-list">
-            <li><a href="">Reply</a></li>
-            <li><a href="">Share</a></li>
-          </ul>
-        </div>
-      </div>
+      <div class="panel">
+	      <div class="row" style="background-color:#FFFFFF">
+	      	<br/>
+	        <div class="large-2 columns small-3"><img src="img/default_profile_small.jpg"/></div>
+	        <div class="large-10 columns">
+	          <p><strong>Some Person said:</strong> Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong.</p>
+	          <ul class="inline-list">
+	            <li><a href="">Reply</a></li>
+	            <li><a href="">Share</a></li>
+	          </ul>
+	        </div>
+	      </div>
+	  </div>	      
       <%
        if (i != 3) {
     	%>

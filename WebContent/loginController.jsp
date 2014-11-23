@@ -18,12 +18,13 @@
                        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/TwitFish", "root", "password");
 
                        Statement stmt = conn.createStatement();
-                       String selNum = "SELECT count(*) AS 'COUNT' FROM User WHERE username = '" + username + "'";
+                       String selNum = "SELECT count(*) AS 'COUNT' FROM User WHERE username = '" + username + "' && password = '" + password + "'";
                        ResultSet st = stmt.executeQuery(selNum);
                        if(st.next()){
                                int num = st.getInt("COUNT");
                                if ( num == 0 ) // create account
                                {
+                            	   response.sendRedirect("login.jsp");
                             	  // error you do not exist
                                }
                                else
