@@ -35,7 +35,7 @@
     background: -webkit-linear-gradient( #33CCFF, #003399); /* For Safari 5.1 to 6.0 */
     background: -o-linear-gradient( #33CCFF, #003399); /* For Opera 11.1 to 12.0 */
     background: -moz-linear-gradient( #33CCFF,  #003399); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(#33CCFF, #003399); /* Standard syntax (must be last)
+    background: linear-gradient(#33CCFF, #003399); /* Standard syntax (must be last) */
 </style>
 
 </head>
@@ -196,7 +196,7 @@
 	            <h4 class="modal-title" id="myModalLabel">People you are following</h4>
 	            </div>
 		            <div class="modal-body">
-		                <%
+		            <%
 	                	for ( User u : user.getFollowing())
 	                	{
 	                %>
