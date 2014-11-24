@@ -88,7 +88,7 @@
 	          <ul class="inline-list">
 	          	<li>
 	          		<p style="color:#FFFFFF">Don't want an account? </p>
-	            	<form name="browseAnonymously" action="browseAnonymously.jsp"  method="POST">
+	            	<form name="browseAnonymously" action="browseAnonymouslyController.jsp"  method="POST">
 	            		<button type="submit" class="btn btn-info btn-default">Browse Anonymously</button>
 	            	</form>
 	            </li>

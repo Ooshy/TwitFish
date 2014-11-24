@@ -40,10 +40,10 @@
 
 <body id="grad1">
 <%
-	String username = (String)session.getAttribute("username");
+	Integer userid = (Integer)session.getAttribute("userid");
 	
 	
-	if (username == null)
+	if (userid == null)
 	{
 		response.sendRedirect("login.jsp");
 	}
@@ -51,7 +51,7 @@
 	{
 	
 		UserSingletonFactory userSingleton = UserSingletonFactory.getInstance();
-		User user = UserSingletonFactory.getUser();
+		User user = UserSingletonFactory.getUser((Integer)session.getAttribute("userid"));
 %>
 
  <div class="container"> 
@@ -65,20 +65,18 @@
 	        <span class="icon-bar"></span>
 	        <span class="icon-bar"></span>
 	      </button>
-	      <a class="navbar-brand" href="#">TwitFish</a>
+	      <a class="navbar-brand" href="MainScreen.jsp">TwitFish</a>
 	    </div>
 	
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav">
 	        <li class="active"><a href="MainScreen.jsp">Home<span class="sr-only">(current)</span></a></li>
-	        <li><a href="#">Messages</a></li>
 	      </ul>
 	      <form class="navbar-form navbar-left" role="search">
 	        <div class="form-group">
 	          <input type="text" class="form-control" placeholder="Search @example #topic">
 	        </div>
-	        <button type="submit" class="btn btn-success" >Go</button>
 	      </form>
 	      <ul class="nav navbar-nav navbar-right">
 	        <li class="dropdown">

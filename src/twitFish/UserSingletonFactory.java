@@ -27,7 +27,10 @@ public class UserSingletonFactory
 	 {
 		 users.put(user.getId(), user);
 	 }
-	 
+	public static void updateUser(Integer id, User user)
+	{
+		users.replace(id, user);
+	}
 	public static User getUser(Integer id)
 	{
 		return getUser("", "", id);

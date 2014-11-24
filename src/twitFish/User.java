@@ -24,7 +24,15 @@ public class User
 				", phone=" + _phone + ", profilePicture=" + _profilePicture + ", email=" + _email ;
 	}
 	
-
+	public void changeSettings(String firstName, String lastName, String address, String email, String phone)
+	{
+		if (!(firstName == null || firstName == "")) _firstName = firstName;
+		if (!(lastName  == null || lastName  == "")) _lastName  = lastName;
+		if (!(address   == null || address   == "")) _address   = address;
+		//if (!(profilePicture == null || profilePicture == "")) _profilePicture = profilePicture;
+		if (!(email     == null || email     == "")) _email     = email;
+		if (!(phone     == null || phone     == "")) _phone     = phone;
+	}
 	public User(int id, String firstName, String lastName, String address, String profilePicture, String email, String phone)
 	{
 		// assign user a unique id

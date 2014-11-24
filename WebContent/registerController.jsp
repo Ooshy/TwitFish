@@ -43,25 +43,14 @@
                             	   insertStatement.executeUpdate();
                             	   
                             	   conn.close();
-                            	   session.setAttribute("username", username);
-                            	   session.setAttribute("firstname", firstName);
-                           		   session.setAttribute("lastname",  lastName );
-                           		   session.setAttribute("address", address );
-                           		   session.setAttribute("phone", phone );
-                           		   session.setAttribute("email", email );
-                           		   
-	                           		User user = new User(username, password);
-	                           		//out.println(user);
-	                           		//if (true) throw new Exception("Debug");
-	                           		if (UserSingletonFactory.getUser() == null)
-	                           			UserSingletonFactory.setAuthenticatedUser(user);
+                            	   
 	                            	   
 	                            	  
-                            	   response.sendRedirect("MainScreen.jsp");
+                            	   response.sendRedirect("login.jsp");
                                }
                                else
                                {
-                            	   session.setAttribute("username", null);
+                            	   session.setAttribute("userid", null);
                             	   // return error message THIS NAME HAS ALREADY BEEN TAKEN
                                }
                        }
