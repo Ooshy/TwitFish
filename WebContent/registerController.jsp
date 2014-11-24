@@ -24,7 +24,7 @@
                                if ( num == 0 ) // create account
                                {
                             	   
-                            	   String insertString = "INSERT INTO User VALUES (null, ?, ?, ?, null, ?, ?, ?, ?)";
+                            	   String insertString = "INSERT INTO User VALUES (null, ?, ?, ?, ?, ?, null, ?, ?)";
                             	   PreparedStatement insertStatement = conn.prepareStatement(insertString);
                             	   String firstName = (String) request.getParameter("firstname");
                             	   String lastName  = (String) request.getParameter("lastname");
@@ -35,13 +35,14 @@
                             	   insertStatement.setString(1, firstName != null ? firstName : "");
                             	   insertStatement.setString(2, lastName  != null ? lastName  : "");
                             	   insertStatement.setString(3, (String) address != null ? address : "");
+                            	   insertStatement.setString(4, email    != null ? email    : "");
+                            	   insertStatement.setString(5, phone    != null ? phone    : "");
                             		// set profile picture to null
-                            	   insertStatement.setString(4, username != null ? username : "");
-                            	   insertStatement.setString(5, password != null ? password : "");
-                            	   insertStatement.setString(6, email    != null ? email    : "");
-                            	   insertStatement.setString(7, phone    != null ? phone    : "");
-                            	   insertStatement.executeUpdate();
+                            	   insertStatement.setString(7, username != null ? username : "");
+                            	   insertStatement.setString(8, password != null ? password : "");
                             	   
+                            	   insertStatement.executeUpdate();
+                            	   // i think that may be it
                             	   conn.close();
                             	   
 	                            	   
