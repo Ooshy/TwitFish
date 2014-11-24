@@ -1,15 +1,5 @@
 <%@page import="twitFish.*"%>
 <%
-
-	session.setAttribute("username", "anonymous");
-	session.setAttribute("firstname", "Anonymous");
-   	session.setAttribute("lastname",  "" );
-   	session.setAttribute("address", "Anonymous" );
-   	session.setAttribute("phone", "Anonymous" );
-   	session.setAttribute("email", "Anonymous");
+	session.setAttribute("userid", Integer.valueOf("-2"));
 	response.sendRedirect("MainScreen.jsp");
-	AuthenticatedUserSingleton singleton = AuthenticatedUserSingleton.getInstance();
-	
-	User user = new User("Anonymous", "", "Anonymous", "Anonymous", "Anonymous", "Anonymous");
-	AuthenticatedUserSingleton.setAuthenticatedUser(user);
 %>

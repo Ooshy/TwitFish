@@ -55,3 +55,5 @@ Add Username varchar(25) not null;
 
 ALTER TABLE User
 Add Password varchar(255) not null;
+
+INSERT INTO User VALUES (-2, "Anonymous", "", "", "", "", "", "", "");

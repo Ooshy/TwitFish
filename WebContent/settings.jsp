@@ -40,7 +40,6 @@
 
 <body id="grad1">
 <%
-
 	String username = (String)session.getAttribute("username");
 	
 	
@@ -51,9 +50,8 @@
 	else
 	{
 	
-		AuthenticatedUserSingleton userSingleton = AuthenticatedUserSingleton.getInstance();
-		User user = AuthenticatedUserSingleton.getUser();
-				
+		UserSingletonFactory userSingleton = UserSingletonFactory.getInstance();
+		User user = UserSingletonFactory.getUser();
 %>
 
  <div class="container"> 

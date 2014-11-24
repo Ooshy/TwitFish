@@ -3,13 +3,13 @@
 <%@page import="java.util.*,java.sql.*,java.io.*" %>
 
 <%
-        String username = request.getParameter("username");
+	String username = request.getParameter("username");
 
         
         String password  = request.getParameter("password");
 
         if (username == "" || username == null || password == "" || password == null){
-			// this should never happen
+	// this should never happen
         }else{
                
                try{
@@ -53,8 +53,8 @@
 	                           		User user = new User(username, password);
 	                           		//out.println(user);
 	                           		//if (true) throw new Exception("Debug");
-	                           		if (AuthenticatedUserSingleton.getUser() == null)
-	                           			AuthenticatedUserSingleton.setAuthenticatedUser(user);
+	                           		if (UserSingletonFactory.getUser() == null)
+	                           			UserSingletonFactory.setAuthenticatedUser(user);
 	                            	   
 	                            	  
                             	   response.sendRedirect("MainScreen.jsp");
@@ -74,4 +74,4 @@
 //            	   response.sendRedirect("register.jsp");
                }
          }
- %>                                      
+%>                                      

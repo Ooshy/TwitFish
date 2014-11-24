@@ -1,6 +1,5 @@
 <%@page import="twitFish.*"%>
 <%
-	User user = AuthenticatedUserSingleton.getUser();
+	User user = UserSingletonFactory.getUser();
 	//user.sendMessage(request.getAttribute(""));
-
 %>

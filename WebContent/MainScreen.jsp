@@ -40,30 +40,32 @@
 
 </head>
 
-<%
-
-	String username = (String)session.getAttribute("username");
-	
-	
-	if (username == null)
-	{
-		response.sendRedirect("login.jsp");
-	}
-	else
-	{
-		/*User user = new User((String) session.getAttribute("firstname"),
-				(String)session.getAttribute("lastname"),
-				(String)session.getAttribute("address"),
-				(String)session.getAttribute("profile"),
-				(String)session.getAttribute("email"),
-				(String)session.getAttribute("phone]"));
-		*/
-		User user = AuthenticatedUserSingleton.getUser();
-				
-%>
 
 
 <body id = "grad1">
+ <%
+ 	Integer userid = (Integer) session.getAttribute("userid");
+ 	
+ 	
+ 	if (userid == null)
+ 	{
+ 		response.sendRedirect("login.jsp");
+ 	}
+ 	else
+ 	{
+ 		/*User user = new User((String) session.getAttribute("firstname"),
+ 		(String)session.getAttribute("lastname"),
+ 		(String)session.getAttribute("address"),
+ 		(String)session.getAttribute("profile"),
+ 		(String)session.getAttribute("email"),
+ 		(String)session.getAttribute("phone]"));
+ 		*/
+ 		try{
+ 			UserSingletonFactory userFactory = UserSingletonFactory.getInstance();
+ 	 		User user = UserSingletonFactory.getUser(userid);	
+ 		
+ 		
+ %>
  
  
      
@@ -269,6 +271,10 @@
 </body>
 
 <%
+ 		} catch (Exception e)
+ 		{
+ 			e.printStackTrace();
+ 		}
 	}
 %>
 </html>>

@@ -1,8 +1,8 @@
 package twitFish;
 import java.util.*;
-import java.util.*;
-import java.sql.*;
-import java.io.*;
+
+
+
 
 public class User
 {
@@ -23,66 +23,12 @@ public class User
 		return this.getClass().getName() + "[firstName=" + _firstName + ", lastName=" + _lastName + ", address=" + _address + 
 				", phone=" + _phone + ", profilePicture=" + _profilePicture + ", email=" + _email ;
 	}
-	public User(String username, String password)
-	{
-		_followers = new ArrayList<User>();
-		_following = new ArrayList<User>();
-		_messages = new ArrayList<Message>();
-		Connection conn = null;
-		try{
-            Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/TwitFish", "root", "password");
+	
 
-            Statement stmt = conn.createStatement();
-            String selNum = "SELECT * FROM user WHERE username = '" + username + "' && password = '" + password + "'";
-            ResultSet st = stmt.executeQuery(selNum);
-            if(st.next()){
-            		//_id = st.getInt(0);
-                    _firstName = st.getString("FirstName");
-                    _lastName = st.getString("LastName");
-                    _address = st.getString("Address");
-                    _phone = st.getString("Phone");
-                    _profilePicture = st.getString("ProfilePicture");
-                    _email = st.getString("Email");
-            }
-            Statement loadMessages = conn.createStatement();
-            String loadMessagesString = "SELECT * FROM message AS M JOIN messageuser as MU ON M.MessageID = MU.MessageID WHERE MU.UserID = " + _id;
-            ResultSet loadMessagesResultSet= loadMessages.executeQuery(loadMessagesString);
-            while (loadMessagesResultSet.next())
-            {
-            	 Statement loadUser = conn.createStatement();
-                 String loadUserString = "SELECT * FROM user WHERE UserID = " + loadMessagesResultSet.getInt("SenderID");
-                 ResultSet loadUserResultSet= loadUser.executeQuery(loadUserString);
-                 User u = null;
-                 if (loadUserResultSet.next())
-                 {
-                	 u = new User(loadUserResultSet.getString("FirstName"),
-                			 loadUserResultSet.getString("LastName"),
-                			 loadUserResultSet.getString("Address"),
-                			 loadUserResultSet.getString("ProfilePicture"),
-                			 loadUserResultSet.getString("Email"),
-                			 loadUserResultSet.getString("Phone"));	 
-                 }
-            	this._messages.add(new Message(loadMessagesResultSet.getString("Text"), loadMessagesResultSet.getDate("Date"), u ));
-            }
-		}catch (Exception e) {
-			
-			try
-			{
-				conn.close();
-			}
-			catch (Exception ex){}
-		}
-		
-		
-	}
-
-	public User(String firstName, String lastName, String address, String profilePicture, String email, String phone)
+	public User(int id, String firstName, String lastName, String address, String profilePicture, String email, String phone)
 	{
 		// assign user a unique id
-		//_id = userIdIncrementer;
-		
-
+		_id = id;
 		_firstName = firstName;
 		_lastName = lastName;
 		_address = address;
