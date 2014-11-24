@@ -1,5 +1,6 @@
 <%@page import="twitFish.*"%>
 <%
-	User user = UserSingletonFactory.getUser();
-	//user.sendMessage(request.getAttribute(""));
+	User u = UserSingletonFactory.getUser((Integer) session.getAttribute("userid"));
+	u.sendMessage((String)request.getParameter("message"));
+	response.sendRedirect("MainScreen.jsp");
 %>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@page import="twitFish.*"%>
+<%@page import="java.util.*" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -23,9 +24,9 @@
 <script>
 	function validateMessage()
 	{
-		alert("WHY");
-		//var message = document.forms["messageForm"]["message"].value;
-		//alert(message);
+		
+		var message = document.forms["messageForm"]["message"].value;
+		
 		return true;
 	}
 </script>
@@ -142,21 +143,22 @@
     <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
 	    <div class="modal-dialog">
 	        <div class="modal-content">
-	            <div class="modal-header">
-	            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&amp;times;</button>
-	            <h4 class="modal-title" id="myModalLabel">Send a Message</h4>
-	            </div>
-	            <form name="messageForm" action="sendMessageController.jsp" onsubmit="return validateMessage()" method="POST">
+		        <form name="messageForm" action="sendMessageController.jsp" onsubmit="return validateMessage()"  method="POST">
+		            <div class="modal-header">
+		            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+		            <h4 class="modal-title" id="myModalLabel">Type your message...</h4>
+		            </div>
+		            
 		            <div class="modal-body">
 		                <textarea class="span6" rows="3" placeholder="Type your message here..." name="message" required></textarea>
 		            </div>
 	            	<div class="modal-footer">
 	                	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 	                
-	               		<button type="submit" class="btn btn-success" data-dismiss="modal">Send</button>
+	               		<button type="submit" class="btn btn-success">Send</button>
 	               	</div>
-	            </form>
-	                
+		            
+		        </form>    
 	        </div>
 	    </div>
 	</div>
@@ -218,7 +220,8 @@
     <div class="large-9 columns">
  
        <%
-       for (int i = 0; i != 3; ++i)
+       List<Message> messages = user.getMessages();
+       for (int i = messages.size()-1; i != -1; --i)
        {
        %>
        <div class="panel" style="background-color:#FFFFFF">
@@ -227,7 +230,7 @@
 		      	<br/>
 		        <div class="large-2 columns small-3"><img src="img/default_profile_small.jpg"/></div>
 		        <div class="large-10 columns">
-		          <p><strong>Some Person said:</strong> Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong.</p>
+		          <p><strong><%= messages.get(i).getAuthor().getFirstName() +  " " + messages.get(i).getAuthor().getLastName() %></strong> <%= messages.get(i).getText() %></p>
 		          <ul class="inline-list">
 		            <li><a href="">Reply</a></li>
 		            <li><a href="">Share</a></li>
@@ -237,12 +240,12 @@
 	  	 </div>	      
 	  
       <%
-       if (i != 3) {
+      // if (i != 3) {
     	%>
     	<hr/>
     	<% 
        }
-	}
+	//}
   %>
        
              

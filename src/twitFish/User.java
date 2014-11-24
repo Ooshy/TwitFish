@@ -66,6 +66,7 @@ public class User
 			{
 				user.addMessage(message);
 			}
+			_messages.add(message);
 		}
 	}
 

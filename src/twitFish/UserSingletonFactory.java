@@ -63,7 +63,7 @@ public class UserSingletonFactory
 				{
 					
 					u = users.get(id);
-	//				loadMessages(u);
+					loadMessages(u);
 	//				loadFollowers(u);
 	//				loadFollowing(u);
 					return u;
