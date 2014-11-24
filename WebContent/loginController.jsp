@@ -48,7 +48,11 @@
        }
        finally
        {
-    	   conn.close();
+    	   try
+    	   {
+    		   conn.close();
+    	   }
+    	   catch (Exception e) {}
        }
     }
 %>                                      

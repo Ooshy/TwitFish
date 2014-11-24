@@ -11,7 +11,7 @@ public class UserSingletonFactory
 {
 	private static UserSingletonFactory userSingletonFactory;
 	private static HashMap<Integer, User> users = null;
-	
+	private static HashMap<Integer, Message> messages = null;
 	 protected UserSingletonFactory() {
 	      // Exists only to defeat instantiation.
 	   }
@@ -19,9 +19,70 @@ public class UserSingletonFactory
 	      if(userSingletonFactory== null) {
 	    	  userSingletonFactory= new UserSingletonFactory();
 	    	  users = new HashMap<Integer, User>();
+	    	  messages = new HashMap<Integer, Message>();
 	      }
 	      return userSingletonFactory;
 	   }
+	 
+	 public static void addMessage(Message message)
+	 {
+		if (!messages.containsKey(message.getId()))
+			messages.put(message.getId(), message);
+	 }
+	 public static Message getMessage(Integer id)
+	 {
+			Connection conn = null;
+			Statement stmt = null;
+			ResultSet st = null; 
+			Message m = null;
+			try
+			{
+				Class.forName("com.mysql.jdbc.Driver");
+			    conn = DriverManager.getConnection("jdbc:mysql://localhost/TwitFish", "root", "password");
+			   
+			    
+			}catch (Exception e) { e.printStackTrace(); }
+			
+
+		     
+		    
+			// find user by ID
+			
+			if (messages.containsKey(id))
+				try 
+				{
+					
+					m = messages.get(id);
+					return m;
+				}
+				catch (Exception e)
+				{
+					
+				}
+			else
+			{
+				try {
+					stmt = conn.createStatement();
+					String selNum = "SELECT * FROM message WHERE MessageID = " + id;
+					st = stmt.executeQuery(selNum);
+					if(st.next()){
+						m = new Message(st.getInt("MessageID"),
+								st.getString("Text"),
+								st.getDate("Date"),
+					            UserSingletonFactory.getUser(st.getInt("SenderID"))
+					            );
+					
+						messages.put(st.getInt("MessageID"), m);
+						return m;
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			
+			
+			return m;
+	 }
 	 
 	 public static void addUser(User user)
 	 {
@@ -83,9 +144,9 @@ public class UserSingletonFactory
 					            st.getString("FirstName"),
 					            st.getString("LastName"),
 					            st.getString("Address"),
-					            st.getString("Phone"),
 					            st.getString("ProfilePicture"),
-					            st.getString("Email"));
+					            st.getString("Email"),
+					            st.getString("Phone"));
 						
 						loadMessages(u);
 						loadFollowing(u);
@@ -129,9 +190,9 @@ public class UserSingletonFactory
 		                        st.getString("FirstName"),
 		                        st.getString("LastName"),
 		                        st.getString("Address"),
-		                        st.getString("Phone"),
 		                        st.getString("ProfilePicture"),
-		                        st.getString("Email"));
+		                        st.getString("Email"),
+		                        st.getString("Phone"));
 		            	loadMessages(u);
 		            	loadFollowing(u);
 		            	loadFollowers(u);
@@ -173,32 +234,37 @@ public class UserSingletonFactory
 	}
 	public static void loadMessages(User u)
 	{
+		u.clearMessages();
 		Connection conn = null;
 		try{
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/TwitFish", "root", "password");
 
 			Statement loadMessages = conn.createStatement();
-		    String loadMessagesString = "SELECT M.*, count(*) FROM message AS M JOIN messageuser as MU ON M.MessageID = MU.MessageID JOIN user as U ON U.UserID = M.SenderID WHERE MU.UserID = " + u.getId();
+		    String loadMessagesString = "SELECT M.* FROM message AS M JOIN messageuser as MU ON M.MessageID = MU.MessageID JOIN user as U ON U.UserID = M.SenderID WHERE MU.UserID = " + u.getId();
 		    ResultSet loadMessagesResultSet= loadMessages.executeQuery(loadMessagesString);
 		    
-		    if (loadMessagesResultSet.getInt("count(*)") != u.getMessages().size()) // if number of messages in db != to messages in memory
+		    //if (loadMessagesResultSet.getInt("count(*)") != u.getMessages().size()) // if number of messages in db != to messages in memory
 			     
-			    while (loadMessagesResultSet.next())
-			    {
-			    	User user = getUser(loadMessagesResultSet.getInt("UserID"));
-			    	Message m = new Message(loadMessagesResultSet.getString("Text"), loadMessagesResultSet.getDate("Date"), user);
-			    	u.addMessage(m);
-			    }
+		    while (loadMessagesResultSet.next())
+		    {	
+		    	Message m = UserSingletonFactory.getMessage(loadMessagesResultSet.getInt("MessageID"));
+		    	u.addMessage(m);
+		    }
 		}catch (Exception e) {
-			try
-			{
+			e.printStackTrace();
+		}
+		finally
+		{
+			try {
 				conn.close();
-			}
-			catch (Exception ex){
-				ex.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
+			
+		
 	}
 	
 }	

@@ -20,7 +20,7 @@ PRIMARY KEY (MessageID)
 
 CREATE TABLE MessageUser
 (
-MessageID int not null auto_increment,
+MessageID int not null,
 UserID int not null,
 PRIMARY KEY (MessageID)
 );

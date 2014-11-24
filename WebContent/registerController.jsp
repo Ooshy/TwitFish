@@ -34,7 +34,7 @@
                             	   
                             	   insertStatement.setString(1, firstName != null ? firstName : "");
                             	   insertStatement.setString(2, lastName  != null ? lastName  : "");
-                            	   insertStatement.setString(3, (String) address != null ? address : "");
+                            	   insertStatement.setString(3, address != null ? address : "");
                             	   insertStatement.setString(4, email    != null ? email    : "");
                             	   insertStatement.setString(5, phone    != null ? phone    : "");
                             		// set profile picture to null

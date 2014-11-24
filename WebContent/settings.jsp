@@ -161,7 +161,7 @@
 			          		First Name:
 			          	</div>
 			          	<div class="col-md-9">
-			          		<input type="text" placeholder=<%= user.getFirstName() %> name="firstname"></input>
+			          		<input type="text"  class="form-control" placeholder="<%= user.getFirstName() %>" name="firstname">
 			          	</div>
 			          </section>
 			          <br/>
@@ -170,7 +170,7 @@
 				            Last Name:
 				          </div>
 				          <div class="col-md-9">
-				            <input type="text" placeholder=<%= user.getLastName() %> name="lastname"></input>
+				            <input type="text" class="form-control" placeholder="<%= user.getLastName() %>" name="lastname">
 				          </div>
 			          </section>
 			          <br/>
@@ -179,7 +179,7 @@
 				    	    Address:
 				    	  </div>
 				    	  <div class="col-md-9">
-				    	    <input type="text" placeholder=<%= user.getAddress() %> name="address"></input>
+				    	    <input type="text" class="form-control" placeholder="<%= user.getAddress() %>" name="address">
 				    	  </div>
 			          </section>
 			          <br/>
@@ -188,7 +188,7 @@
 				    	    Email:
 				    	  </div>
 				    	  <div class="col-md-9">
-				    	    <input type="text" placeholder=<%= user.getEmail() %> name="email"></input>
+				    	    <input type="email" class="form-control" placeholder="<%= user.getEmail() %>" name="email">
 				    	  </div>
 				      </section>
 			          <br/>
@@ -197,7 +197,7 @@
 			    	    	Phone:
 			    	   	</div>
 			    	   	<div class="col-md-9">
-			    	   		<input type="text" placeholder=<%= user.getPhone() %> name="phone"></input>
+			    	   		<input type="text" class="form-control" placeholder="<%= user.getPhone() %>" name="phone"></input>
 			    	   	</div>
 			          </section>
 			          <section class="section">

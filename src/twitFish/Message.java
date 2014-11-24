@@ -4,30 +4,33 @@ import java.util.Date;
 
 public class Message
 {
+	Integer _id;
 	boolean _isDirect;
 	String _text;
 	Date _date;
 	User _author;
 
-	public Message(String text, Date date, User author)
+	public Message(Integer id, String text, Date date, User author)
 	{
-		this(text,date, author,false);
+		this(id, text,date, author,false);
 	}
-	public Message(String text, User author)
+	public Message(Integer id, String text, User author)
 	{
-		this(text,author,false);
+		this(id, text,author,false);
 	}
 	
-	public Message(String text, Date date, User author, boolean isDirect)
+	public Message(Integer id, String text, Date date, User author, boolean isDirect)
 	{
+		_id = id;
 		_text = text;
 		_date = date;
 		_author = author;
 		_isDirect = isDirect;
 	}
 	
-	public Message(String text, User author, boolean isDirect)
+	public Message(Integer id, String text, User author, boolean isDirect)
 	{
+		_id = id;
 		_text = text;
 		_date = new Date();
 		_author = author;
@@ -49,5 +52,9 @@ public class Message
 	public boolean isDirect()
 	{
 		return _isDirect;
+	}
+	public Integer getId()
+	{
+		return _id;
 	}
 }

@@ -1,11 +1,11 @@
 <%@page import="twitFish.*"%>
 <%@page import="java.util.*,java.sql.*,java.io.*" %>
 <%
-	String newFirstName = request.getParameter("firstname");
-	String newLastName  = request.getParameter("lastname");
-	String newAddress   = request.getParameter("address");
-	String newEmail     = request.getParameter("email");
-	String newPhone     = request.getParameter("phone");
+	String newFirstName = (String) request.getParameter("firstname");
+	String newLastName  = (String) request.getParameter("lastname");
+	String newAddress   = (String) request.getParameter("address");
+	String newEmail     = (String) request.getParameter("email");
+	String newPhone     = (String) request.getParameter("phone");
 	
 	Connection conn = null;
 	try
@@ -46,16 +46,15 @@
         	  selNum += "Phone='" + newPhone + "'";
 			  commaNeeded = true;        	  
           }
-          
+          if (commaNeeded == false) response.sendRedirect("settings.jsp"); // blank fields 
           
           selNum += " WHERE UserID = " + (Integer) session.getAttribute("userid");
-          
-          
           stmt.executeUpdate(selNum);
           
           User u = UserSingletonFactory.getUser((Integer) session.getAttribute("userid"));
           u.changeSettings(newFirstName, newLastName, newAddress, newEmail, newPhone);
           UserSingletonFactory.updateUser((Integer) session.getAttribute("userid"), u);
+          //throw new Exception();
           response.sendRedirect("settings.jsp");
 	}
 	catch (Exception e)

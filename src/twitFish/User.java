@@ -1,12 +1,12 @@
 package twitFish;
 import java.util.*;
-
+import java.sql.*;
 
 
 
 public class User
 {
-	private int _id;
+	private Integer _id;
 	private String _firstName;
 	private String _lastName;
 	private String _address;
@@ -17,7 +17,10 @@ public class User
 	//private List<DirectMessage> _directMessages;
 	private List<User> _followers;
 	private List<User> _following;
-	
+	public void clearMessages()
+	{
+		_messages.clear();
+	}
 	public String toString()
 	{
 		return this.getClass().getName() + "[firstName=" + _firstName + ", lastName=" + _lastName + ", address=" + _address + 
@@ -57,16 +60,72 @@ public class User
 	 *
      *
      */
-	public void sendMessage(String messageText)
+	public void sendMessage(String messageText, Integer messageID)
 	{
+		Connection conn = null;
 		if (messageText != null)
 		{
-			Message message = new Message(messageText, this);
+			Message message = new Message(messageID, messageText, this);
+			UserSingletonFactory.addMessage(message);
 			for ( User user : _followers )
 			{
 				user.addMessage(message);
+				
+				try
+				{
+					 Class.forName("com.mysql.jdbc.Driver");
+			         conn = DriverManager.getConnection("jdbc:mysql://localhost/TwitFish", "root", "password");
+
+			         
+				  	 String insertString = "INSERT INTO messageuser VALUES (?, ?)";
+				  	 PreparedStatement insertStatement = conn.prepareStatement(insertString);
+				  	    
+				  	 insertStatement.setInt(1, messageID);
+				  	 insertStatement.setInt(2, user.getId());
+				  	   
+				  	 insertStatement.executeUpdate();
+				} catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+				finally
+				{
+
+				}
+				
+				
+				
 			}
-			_messages.add(message);
+			
+			
+	
+			try
+			{
+				 Class.forName("com.mysql.jdbc.Driver");
+		         conn = DriverManager.getConnection("jdbc:mysql://localhost/TwitFish", "root", "password");
+
+		         
+			  	 String insertString = "INSERT INTO messageuser VALUES (?, ?)";
+			  	 PreparedStatement insertStatement = conn.prepareStatement(insertString);
+			  	    
+			  	 insertStatement.setInt(1, messageID);
+			  	 insertStatement.setInt(2, this.getId());
+			  	   
+			  	 insertStatement.executeUpdate();
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+			finally
+			{
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			//_messages.add(message);
 		}
 	}
 
