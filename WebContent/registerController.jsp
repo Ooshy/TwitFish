@@ -38,8 +38,8 @@
                             	   insertStatement.setString(4, email    != null ? email    : "");
                             	   insertStatement.setString(5, phone    != null ? phone    : "");
                             		// set profile picture to null
-                            	   insertStatement.setString(7, username != null ? username : "");
-                            	   insertStatement.setString(8, password != null ? password : "");
+                            	   insertStatement.setString(6, username != null ? username : "");
+                            	   insertStatement.setString(7, password != null ? password : "");
                             	   
                             	   insertStatement.executeUpdate();
                             	   // i think that may be it
