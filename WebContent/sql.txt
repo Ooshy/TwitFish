@@ -41,6 +41,14 @@ MessageID int not null,
 PRIMARY KEY (MentionID)
 );
 
+CREATE TABLE Followers
+(
+ID int not null auto_increment,
+UserID int not null, 
+FollowerID int not null,
+PRIMARY KEY (ID)
+);
+
 ALTER TABLE User
 ADD Email varchar(255);
 
