@@ -155,7 +155,7 @@ public class User
 	{
 		return _messages;
 	}
-	public int getId()
+	public Integer getId()
 	{
 		return _id;
 	}

@@ -120,7 +120,7 @@
   <div class="row">
   
      
-    <div class="large-3 columns ">
+    <!--  <div class="large-3 columns ">
       <div class="panel">
         <a href="settings.jsp"><img src="img/default_profile_large.jpg"/></a>
         <h5><a href="#"><%= user.getFirstName() + " " + user.getLastName() %></a></h5>
@@ -150,6 +150,7 @@
  
       </div>
     </div>
+    -->
     
     <!-- modal -->
     <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
@@ -229,7 +230,7 @@
 	        </div>
 	    </div>
 	</div> 
-    <div class="large-9 columns">
+    <div class="large-12 columns">
  
        <%
        List<Message> messages = user.getMessages();

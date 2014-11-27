@@ -38,6 +38,9 @@
                      		session.setAttribute("email", userInfoResultSet.getString("Email"));*/
                     }
                  
+                    conn.close();
+                    st.close();
+                    stmt.close();
                  	response.sendRedirect("MainScreen.jsp");
                  	 
             
@@ -50,7 +53,8 @@
        {
     	   try
     	   {
-    		   conn.close();
+    		   if (conn != null)
+    		   	conn.close();
     	   }
     	   catch (Exception e) {}
        }

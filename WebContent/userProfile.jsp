@@ -63,7 +63,8 @@
  		*/
  		try{
  			UserSingletonFactory userFactory = UserSingletonFactory.getInstance();
- 	 		User user = UserSingletonFactory.getUser(userid);	
+ 	 		User user = UserSingletonFactory.getUser((Integer)session.getAttribute("profileid"));	
+ 	 		
  		
  		
  %>
@@ -96,7 +97,9 @@
       </form>
       <ul class="nav navbar-nav navbar-right">
         <li>
-        	
+        	<div class="form-group">
+          		<input type="text" class="form-control" placeholder="Search @example #topic">
+        	</div>
         </li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Account<span class="caret"></span></a>
@@ -125,13 +128,13 @@
         <a href="settings.jsp"><img src="img/default_profile_large.jpg"/></a>
         <h5><a href="#"><%= user.getFirstName() + " " + user.getLastName() %></a></h5>
           <div class="section-container vertical-nav" data-section data-options="deep_linking: false; one_up: true">
-          <% if (user.getId() != -2)
+          <% if ((Integer)session.getAttribute("userid") != -2)
         	  {
         	  %>
-          <section class="section">
+          <!--<section class="section">
           	<a href="#" class="btn btn-danger" data-toggle="modal" data-target="#basicModal"><span class="glyphicon glyphicon-envelope" aria-hidden="false"></span> Send Message</a>
           </section>
-          <br/>
+          <br/>-->
           <section class="section">
             <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#followingModal">
   				Following <span class="badge"><%= user.getNumFollowing() %></span>
@@ -175,13 +178,37 @@
 	    </div>
 	</div>
 	
+	<!-- reply modal -->
+    <div class="modal fade" id="replyModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+		        <form name="messageForm" action="sendMessageController.jsp" onsubmit="return validateMessage()"  method="POST">
+		            <div class="modal-header">
+		            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
+		            <h4 class="modal-title" id="myModalLabel">Type your message...</h4>
+		            </div>
+		            
+		            <div class="modal-body">
+		                <textarea class="span6" rows="3" placeholder="Type your message here..." name="message" required>@<%= user.getFirstName() %> </textarea>
+		            </div>
+	            	<div class="modal-footer">
+	                	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	                
+	               		<button type="submit" class="btn btn-success">Send</button>
+	               	</div>
+		            
+		        </form>    
+	        </div>
+	    </div>
+	</div>
+	
 	<!-- followers modal -->
     <div class="modal fade" id="followersModal" tabindex="-1" role="dialog" aria-labelledby="followersModal" aria-hidden="true">
 	    <div class="modal-dialog">
 	        <div class="modal-content">
 	            <div class="modal-header">
 	            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&amp;times;</button>
-	            <h4 class="modal-title" id="myModalLabel">People following you...</h4>
+	            <h4 class="modal-title" id="myModalLabel">People following <%= user.getFirstName() %>...</h4>
 	            </div>
 	            <div class="modal-body">
 	                <%
@@ -210,7 +237,7 @@
 	        <div class="modal-content">
 	            <div class="modal-header">
 	            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&amp;times;</button>
-	            <h4 class="modal-title" id="myModalLabel">People you are following</h4>
+	            <h4 class="modal-title" id="myModalLabel">People <%= user.getFirstName() %> is following</h4>
 	            </div>
 		            <div class="modal-body">
 		            <%
@@ -244,19 +271,19 @@
 		        <div class="large-10 columns">
 		          <p><strong><%= messages.get(i).getAuthor().getFirstName() +  " " + messages.get(i).getAuthor().getLastName() %></strong> <%= messages.get(i).getText() %></p>
 		          <ul class="inline-list">
-		            <li>
+		            
 		            	<%
-		            		if (!messages.get(i).getAuthor().getId().equals(user.getId()))
+		            		if (!messages.get(i).getAuthor().getId().equals((Integer)session.getAttribute("userid")))
 		            		{
 		            			//List<User> followers = user.getFollowing();
 		            			//User followee = UserSingletonFactory.getUser(messages.get(i).getAuthor().getId());
 		            			//boolean alreadyFollowing = followers.contains(followee);
 		            			//System.out.println(alreadyFollowing);
 		            		
-		            			if (true)//alreadyFollowing == true)
+		            			if (UserSingletonFactory.isFollowing(UserSingletonFactory.getUser((Integer)session.getAttribute("userid")), user)) //alreadyFollowing == true)
 		            			{
 		            				%>
-		            				<a href="">Following</a>
+		            				<!--<li><a href="">Following</a></li> -->
 		            				<%
 		            				
 		            					
@@ -267,11 +294,14 @@
 		            			{
 		            				session.setAttribute("followerid", messages.get(i).getAuthor().getId());
 		            				%>
-		            				<a href="followController.jsp">Follow</a>
+		            				<li><a href="followController.jsp">Follow</a></li>
 		            				<%
 		            			}
-		            			%></li>
-		     		            <li><a href="">Reply</a></li>
+		            			%>
+		     		            <li>
+		     		            	<!-- <a href="">Reply</a> -->
+		     		            	<a href="#" data-toggle="modal" data-target="#replyModal"><span class="glyphicon glyphicon-arrow-left" aria-hidden="false"></span> Reply</a>
+		     		            </li>
 		     		            <%
 		            		}
 		            

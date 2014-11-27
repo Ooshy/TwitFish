@@ -39,6 +39,38 @@ public class UserSingletonFactory {
 			}
 		return null;
 	}
+	public static boolean isFollowing(User user1, User user2)
+	{
+		Statement stmt = null;
+		ResultSet st = null;
+		Connection conn = null;
+		
+		try {
+			conn = DriverManager.getConnection("jdbc:mysql://localhost/TwitFish", "root", "password");
+			stmt = conn.createStatement();
+			String selNum = "SELECT count(*) FROM followers WHERE UserID = " + user1.getId() + " && FollowerID = " + user2.getId() ;
+			st = stmt.executeQuery(selNum);
+			if (st.next()) {
+				Integer count = st.getInt("count(*)");
+				conn.close();
+				st.close();
+				stmt.close();
+				if (count >= 1) return true;
+				else return false;
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		try
+		{
+			if (conn != null)
+				conn.close();
+		} catch (SQLException e) { System.out.println(e.getMessage()); }
+		return false;
+	}
+		
+		
 	
 	public static Message getMessageFromDatabase(Integer id, Connection conn) {
 	
@@ -103,7 +135,7 @@ public class UserSingletonFactory {
 					loadMessages(u);
 					loadFollowers(u);
 					loadFollowing(u);
-					conn.close();
+					
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 				}
