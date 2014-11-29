@@ -65,7 +65,8 @@ public class User
 		Connection conn = null;
 		if (messageText != null)
 		{
-			Message message = new Message(messageID, messageText, this);
+			//Message message = new Message(messageID, messageText, this);
+			Message message = UserSingletonFactory.getMessageFromDatabase( messageID , null);
 			UserSingletonFactory.addMessage(message);
 			for ( User user : _followers )
 			{

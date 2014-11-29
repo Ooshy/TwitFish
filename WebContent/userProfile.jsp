@@ -96,11 +96,6 @@
         	</div>
       </form>
       <ul class="nav navbar-nav navbar-right">
-        <li>
-        	<div class="form-group">
-          		<input type="text" class="form-control" placeholder="Search @example #topic">
-        	</div>
-        </li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Account<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
@@ -130,11 +125,28 @@
           <div class="section-container vertical-nav" data-section data-options="deep_linking: false; one_up: true">
           <% if ((Integer)session.getAttribute("userid") != -2)
         	  {
+        	  
+        	  if (!UserSingletonFactory.isFollowing(UserSingletonFactory.getUser((Integer)session.getAttribute("userid")), user))
+        	  {
+        		  session.setAttribute("followerid", user.getId());
         	  %>
-          <!--<section class="section">
-          	<a href="#" class="btn btn-danger" data-toggle="modal" data-target="#basicModal"><span class="glyphicon glyphicon-envelope" aria-hidden="false"></span> Send Message</a>
-          </section>
-          <br/>-->
+        	  
+          		<section class="section">
+          			<a href="followController.jsp" class="btn btn-danger"> Follow</a>
+          		</section>
+          		<br/>
+          		<%
+        	  }
+        	  else
+        	  {
+          		%>
+          		<section class="section">
+          			<a href="#" class="btn btn-danger"> Following</a>
+          		</section>
+          		<br/>
+          		<%
+        	  }
+          		%>
           <section class="section">
             <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#followingModal">
   				Following <span class="badge"><%= user.getNumFollowing() %></span>
@@ -262,6 +274,12 @@
        List<Message> messages = user.getMessages();
        for (int i = messages.size()-1; i != -1; --i)
        {
+    	   
+       	   if (messages.get(i).isPublic() == true) {;}
+       	   else if (!UserSingletonFactory.isFollowing(UserSingletonFactory.getUser((Integer)session.getAttribute("userid")), user)) 
+       		   continue; //alreadyFollowing == true)
+    			   
+       
        %>
        <div class="panel" style="background-color:#FFFFFF">
 	      <div class="row" style="background-color:#FFFFFF">
@@ -292,10 +310,13 @@
 		            			}
 		            			else
 		            			{
-		            				session.setAttribute("followerid", messages.get(i).getAuthor().getId());
-		            				%>
-		            				<li><a href="followController.jsp">Follow</a></li>
-		            				<%
+		            				if (user.getId() != -2)
+		            				{
+		            					session.setAttribute("followerid", messages.get(i).getAuthor().getId());
+		            					%>
+		            					<li><a href="followController.jsp">Follow</a></li>
+		            					<%
+		            				}
 		            			}
 		            			%>
 		     		            <li>

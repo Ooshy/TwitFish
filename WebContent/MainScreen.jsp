@@ -37,6 +37,15 @@
     background: -o-linear-gradient( #33CCFF, #003399); /* For Opera 11.1 to 12.0 */
     background: -moz-linear-gradient( #33CCFF,  #003399); /* For Firefox 3.6 to 15 */
     background: linear-gradient(#33CCFF, #003399); /* Standard syntax (must be last) */
+    }
+    
+#grad2 {
+    height: 200px;
+    background: -webkit-linear-gradient( #003399, #33CCFF); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient( #003399, #33CCFF); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient( #003399,  #33CCFF); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(#003399,#33CCFF ); /* Standard syntax (must be last) */
+    }
 </style>
 
 </head>
@@ -165,6 +174,11 @@
 		                <textarea class="span6" rows="3" placeholder="Type your message here..." name="message" required></textarea>
 		            </div>
 	            	<div class="modal-footer">
+						<div class="checkbox">
+	            			<label>
+	            				<input type="checkbox" name="makePublic" value = "on">Public
+	            			</label>
+	            		</div>
 	                	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 	                
 	               		<button type="submit" class="btn btn-success">Send</button>
@@ -180,7 +194,7 @@
 	    <div class="modal-dialog">
 	        <div class="modal-content">
 	            <div class="modal-header">
-	            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&amp;times;</button>
+	            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
 	            <h4 class="modal-title" id="myModalLabel">People following you...</h4>
 	            </div>
 	            <div class="modal-body">
@@ -209,7 +223,7 @@
 	    <div class="modal-dialog">
 	        <div class="modal-content">
 	            <div class="modal-header">
-	            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&amp;times;</button>
+	            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
 	            <h4 class="modal-title" id="myModalLabel">People you are following</h4>
 	            </div>
 		            <div class="modal-body">
@@ -229,50 +243,53 @@
 	        </div>
 	    </div>
 	</div> 
-    <div class="large-9 columns">
+    <div class="large-8 columns">
  
        <%
        List<Message> messages = user.getMessages();
        for (int i = messages.size()-1; i != -1; --i)
        {
        %>
-       <div class="panel" style="background-color:#FFFFFF">
-	      <div class="row" style="background-color:#FFFFFF">
+       
+       <div class="panel"  style="background-color:#FFFFFF">
+       	
+	      <div class="row"  style="background-color:#FFFFFF">
 		      
 		      	<br/>
 		        <div class="large-2 columns small-3"><img src="img/default_profile_small.jpg"/></div>
 		        <div class="large-10 columns">
 		          <p><strong><%= messages.get(i).getAuthor().getFirstName() +  " " + messages.get(i).getAuthor().getLastName() %></strong> <%= messages.get(i).getText() %></p>
 		          <ul class="inline-list">
-		            <li>
+		          
 		            	<%
 		            		if (!messages.get(i).getAuthor().getId().equals(user.getId()))
 		            		{
-		            			//List<User> followers = user.getFollowing();
-		            			//User followee = UserSingletonFactory.getUser(messages.get(i).getAuthor().getId());
-		            			//boolean alreadyFollowing = followers.contains(followee);
-		            			//System.out.println(alreadyFollowing);
-		            		
-		            			if (true)//alreadyFollowing == true)
+		            			
+		            			
+		            			if (UserSingletonFactory.isFollowing(user, messages.get(i).getAuthor())) //alreadyFollowing == true)
 		            			{
 		            				%>
-		            				<a href="">Following</a>
+		            				<li><a href="">Following</a></li> 
 		            				<%
-		            				
-		            					
-		            				
-		            			
+  			
 		            			}
 		            			else
 		            			{
-		            				session.setAttribute("followerid", messages.get(i).getAuthor().getId());
-		            				%>
-		            				<a href="followController.jsp">Follow</a>
-		            				<%
+		            				if (user.getId() != -2)
+		            				{
+		            					session.setAttribute("followerid", messages.get(i).getAuthor().getId());
+		            					%>
+		            					<li><a href="followController.jsp">Follow</a></li>
+		            					<%
+		            				}
 		            			}
-		            			%></li>
-		     		            <li><a href="">Reply</a></li>
+		            			%>
+		     		            <li>
+		     		            	<!-- <a href="">Reply</a> -->
+		     		            	<a href="#" data-toggle="modal" data-target="#replyModal"><span class="glyphicon glyphicon-arrow-left" aria-hidden="false"></span> Reply</a>
+		     		            </li>
 		     		            <%
+
 		            		}
 		            
 		            		

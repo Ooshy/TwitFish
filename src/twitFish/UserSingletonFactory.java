@@ -51,7 +51,7 @@ public class UserSingletonFactory {
 			String selNum = "SELECT count(*) FROM followers WHERE UserID = " + user1.getId() + " && FollowerID = " + user2.getId() ;
 			st = stmt.executeQuery(selNum);
 			if (st.next()) {
-				Integer count = st.getInt("count(*)");
+				int count = st.getInt("count(*)");
 				conn.close();
 				st.close();
 				stmt.close();
@@ -87,7 +87,12 @@ public class UserSingletonFactory {
 
 		// find user by ID
 
-		
+		if (conn == null)
+			try {
+				conn = DriverManager.getConnection("jdbc:mysql://localhost/TwitFish", "root", "password");
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 		
 		try {
 			stmt = conn.createStatement();
@@ -96,7 +101,8 @@ public class UserSingletonFactory {
 			if (st.next()) {
 				m = new Message(st.getInt("MessageID"),
 						st.getString("Text"), st.getDate("Date"),
-						UserSingletonFactory.getUser(st.getInt("SenderID")));
+						UserSingletonFactory.getUser(st.getInt("SenderID")),
+								st.getBoolean("Public"));
 
 				messages.put(st.getInt("MessageID"), m);
 			}

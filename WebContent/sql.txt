@@ -15,6 +15,7 @@ MessageID int not null auto_increment,
 SenderID int not null,
 Text varchar(140) not null,
 Date DATETIME not null,
+Public TINYINT(1) not NULL,
 PRIMARY KEY (MessageID)
 );
 
