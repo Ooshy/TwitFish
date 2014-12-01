@@ -139,8 +139,8 @@ public class UserSingletonFactory {
 
 					u = users.get(id);
 					loadMessages(u);
-					loadFollowers(u);
-					loadFollowing(u);
+					//loadFollowers(u);
+					//loadFollowing(u);
 					
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
@@ -167,12 +167,14 @@ public class UserSingletonFactory {
 								st.getString("LastName"),
 								st.getString("Address"),
 								st.getString("ProfilePicture"),
-								st.getString("Email"), st.getString("Phone"));
+								st.getString("Email"),
+								st.getString("Phone"));
 
-						loadMessages(u);
-						loadFollowing(u);
-						loadFollowers(u);
 						users.put(st.getInt("UserID"), u);
+						loadMessages(u);
+						//loadFollowing(u);
+						//loadFollowers(u);
+						
 						st.close();
 						stmt.close();
 						conn.close();
@@ -195,8 +197,8 @@ public class UserSingletonFactory {
 					int UserID = st.getInt("UserID");
 					u = users.get(UserID);
 					loadMessages(u);
-					loadFollowers(u);
-					loadFollowing(u);
+					//loadFollowers(u);
+					//loadFollowing(u);
 
 					st.close();
 					stmt.close();
@@ -216,8 +218,8 @@ public class UserSingletonFactory {
 								st.getString("ProfilePicture"),
 								st.getString("Email"), st.getString("Phone"));
 						loadMessages(u);
-						loadFollowing(u);
-						loadFollowers(u);
+						//loadFollowing(u);
+						//loadFollowers(u);
 						users.put(st.getInt("UserID"), u);
 
 						st.close();
@@ -244,13 +246,81 @@ public class UserSingletonFactory {
 		return u;
 	}
 
-	private static void loadFollowers(User u) {
-		// TODO Auto-generated method stub
+	public static void loadFollowers(User u) {
+		u.clearFollowers();
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(
+					"jdbc:mysql://localhost/TwitFish", "root", "password");
+
+			Statement loadFollowers = conn.createStatement();
+			String loadFollowersString = "SELECT F.UserID FROM followers AS F JOIN user as U ON F.FollowerID = U.UserID WHERE F.FollowerID = "
+					+ u.getId();
+			ResultSet loadFollowersResultSet = loadFollowers
+					.executeQuery(loadFollowersString);
+
+			// if (loadMessagesResultSet.getInt("count(*)") !=
+			// u.getMessages().size()) // if number of messages in db != to
+			// messages in memory
+
+			while (loadFollowersResultSet.next()) {
+				User user = UserSingletonFactory.getUser(loadFollowersResultSet.getInt("UserID"));
+				
+				u.addFollower(user);
+			}
+			loadFollowers.close();
+			loadFollowersResultSet.close();
+			conn.close();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				System.out.println(e.getMessage());
+			}
+		}
 
 	}
+	
+	public static void loadFollowing(User u) {
+		u.clearFollowing();
+		Connection conn = null;
+		try {
+			conn = DriverManager.getConnection(
+					"jdbc:mysql://localhost/TwitFish", "root", "password");
 
-	private static void loadFollowing(User u) {
-		// TODO Auto-generated method stub
+			Statement loadFollowing = conn.createStatement();
+			String loadFollowingString = "SELECT F.FollowerID FROM followers AS F JOIN user as U ON F.FollowerID = U.UserID WHERE F.UserID = "
+					+ u.getId();
+			ResultSet loadFollowingResultSet = loadFollowing
+					.executeQuery(loadFollowingString);
+
+			// if (loadMessagesResultSet.getInt("count(*)") !=
+			// u.getMessages().size()) // if number of messages in db != to
+			// messages in memory
+
+			while (loadFollowingResultSet.next()) {
+				User user = UserSingletonFactory.getUser(loadFollowingResultSet.getInt("FollowerID"));
+				
+				u.addFollowing(user);
+			}
+			loadFollowing.close();
+			loadFollowing.close();
+			conn.close();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				System.out.println(e.getMessage());
+			}
+		}
 
 	}
 
@@ -288,6 +358,7 @@ public class UserSingletonFactory {
 			}
 		} catch (SQLException | ClassNotFoundException e) {
 			System.out.println(e.getMessage());
+			System.out.println("I AM HERE WTF");
 		} finally {
 			try {
 				if (conn != null)

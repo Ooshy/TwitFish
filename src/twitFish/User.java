@@ -21,12 +21,19 @@ public class User
 	{
 		_messages.clear();
 	}
+	public void clearFollowing()
+	{
+		_following.clear();
+	}
 	public String toString()
 	{
 		return this.getClass().getName() + "[firstName=" + _firstName + ", lastName=" + _lastName + ", address=" + _address + 
 				", phone=" + _phone + ", profilePicture=" + _profilePicture + ", email=" + _email ;
 	}
-	
+//	public boolean isLoaded()
+//	{
+//		if (_)
+//	}
 	public void changeSettings(String firstName, String lastName, String address, String email, String phone)
 	{
 		if (!(firstName == null || firstName == "")) _firstName = firstName;
@@ -55,6 +62,13 @@ public class User
 		if (user != null)
 			_following.add(user);
 	}
+	public void addFollower(User user)
+	{
+		if (user != null)
+		{
+			_followers.add(user);
+		}
+	}
 
 	/**
 	 *
@@ -68,6 +82,8 @@ public class User
 			//Message message = new Message(messageID, messageText, this);
 			Message message = UserSingletonFactory.getMessageFromDatabase( messageID , null);
 			UserSingletonFactory.addMessage(message);
+			UserSingletonFactory.loadFollowers(this);
+			System.out.println("num followers: "  +_followers.size());
 			for ( User user : _followers )
 			{
 				user.addMessage(message);
@@ -120,13 +136,14 @@ public class User
 			finally
 			{
 				try {
-					conn.close();
+					if (conn != null)
+						conn.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
 			}
 			
-			//_messages.add(message);
+			_messages.add(message);
 		}
 	}
 
@@ -185,5 +202,8 @@ public class User
 	{
 		return _phone;
 	}
-	
+	public void clearFollowers()
+	{
+		this._followers.clear();
+	}
 }
